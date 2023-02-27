@@ -1,0 +1,72 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-myservice-frontend
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production-frontend
+spec:
+  rules:
+  - host: frontendwayshub.studentdumbways.my.id
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend 
+            port:
+              number: 3000
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - frontendwayshub.studentdumbways.my.id
+      secretName: ssl-frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend  
+spec:
+  type: ClusterIP
+  ports:
+  - port: 3000
+  selector:
+    app: frontend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: ilhaskam/wayshub-frontend:v1
+        ports:
+        - containerPort: 3000
+        env:
+        - name: TITLE
+          value: "Frontend Demo"
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production-frontend
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: ilhaskam@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-production-frontend
+    solvers:
+      - http01:
+          ingress:
+            class: nginx

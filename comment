@@ -1,0 +1,21 @@
+Ingress
+
+cek ingress nginx :
+kubectl get pods --namespace ingress-nginx
+
+Check the NGINX Ingress controller has been assigned a public Ip address :
+kubectl get service ingress-nginx-controller --namespace=ingress-nginx
+
+
+Mengakses Services kubernetes
+
+masuk ke dalam container pod : 
+kubectl exec -it (nama_pod) -- /bin/sh
+
+lalu ketik command (env) di dalam pod
+curl http://(cluster_IP):(port)
+
+untuk mengecek apakah deployment app berhasil berjalan : 
+curl (nama_service).(nama-namespace).svc.cluster.local:(port)
+
+kubectl get endpoints

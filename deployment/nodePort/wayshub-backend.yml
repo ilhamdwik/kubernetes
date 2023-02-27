@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wayshub-backend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+  selector:
+    name: wayshub
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wayshub-backend  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: wayshub
+  template:
+    metadata:
+      labels:
+        name: wayshub
+    spec:
+      containers:
+      - name: wayshub-backend
+        image: ilhaskam/wayshub-backend-kubernetes:v1
+        ports:
+        - containerPort: 5000
+        env:
+        - name: TITLE
+          value: "Wayshub Demo Backend"

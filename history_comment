@@ -1,0 +1,23 @@
+ 2000  gcloud container clusters get-credentials ilham-cluster --zone asia-southeast1-a --project personal-project-374705
+ 2001  gcloud auth login
+ 2002  clear
+ 2003  gcloud auth login
+ 2004  gcloud config set project personal-project-374705
+ 2005  gcloud container clusters get-credentials ilham-cluster --zone asia-southeast1-a --project personal-project-374705
+ 2006  cloud components install gke-gcloud-auth-plugin
+ 2007  gcloud components install gke-gcloud-auth-plugin
+ 2008  sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+ 2009  clear
+ 2010  gcloud components list
+ 2011  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+ 2012  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+ 2013  sudo apt update
+ 2014  sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+ 2015  clear
+ 2016  gcloud container clusters get-credentials ilham-cluster --zone asia-southeast1-a --project personal-project-374705
+ 2017  kubectl get nodes
+ 2018  kubectl get all
+
+
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/cloud/deploy.yaml

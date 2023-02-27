@@ -1,0 +1,85 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-myservice-backend
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production-backend
+spec:
+  rules:
+  - host: backendwayshub.studentdumbways.my.id
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: backend 
+            port:
+              number: 5000
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - backendwayshub.studentdumbways.my.id
+      secretName: ssl-backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend  
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5000
+  selector:
+    app: backend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: ilhaskam/wayshub-backend-kubernetes:v1
+        ports:
+        - containerPort: 5000
+        env:
+        # - name: TITLE
+        #   value: "Backend Demo"
+        - name: PGUSER
+          value: wayshub
+        - name: PGHOST
+          value: postgres-cluster-ip-service
+        - name: PGPORT
+          value: "5432"
+        - name: PGDATABASE
+          value: wayshub
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pgpassword
+              key: PGPASSWORD
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production-backend
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: ilhaskam@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-production-backend
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
