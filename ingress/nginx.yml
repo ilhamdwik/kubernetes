@@ -1,0 +1,73 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-myservice
+  annotations:
+    # kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-production-nginx
+spec:
+  rules:
+  - host: nginx.studentdumbways.my.id
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx 
+            port:
+              number: 80
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - nginx.studentdumbways.my.id
+      secretName: ssl-nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx  
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+  selector:
+    app: nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        env:
+        - name: TITLE
+          value: "nginx"
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production-nginx
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: ilhaskam@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-production-nginx
+    solvers:
+      - http01:
+          ingress:
+            class: nginx

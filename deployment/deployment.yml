@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: nginx
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 4
+  template:
+    metadata:
+      name: 
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+
+---------------------------------------------------------------------------------
+
+kubectl create deployment httpd-frontend --image=httpd:2.4-alpine --replicas=3
+
+
+
+---------------------------------------------------------------------------------
+
+Deployment Update and Rollback
+
+CREATE                kubectl create -f deployment-definition.yml
+
+GET                   kubectl get deployments
+
+UPDATE                kubectl apply -f deployment-definition.yml
+
+                      kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1
+
+STATUS                kubectl rollout status deployment/myapp-deployment
+
+                      kubectl rollout history deployment/myapp-deployment
+
+ROLLBACK              kubectl rollout undo deployment/myapp-deployment
