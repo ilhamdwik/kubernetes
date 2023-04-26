@@ -58,7 +58,8 @@ kubectl apply -f nginx.yaml
 kubectl apply -f /path/to/config-files
 
 
-# can see Manage Kubernetes Objects in kubernetes.io
+# See Manage Kubernetes Objects in kubernetes.io 
+## link in below
 
 [Manage Kubernetes Objects](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/)
 
