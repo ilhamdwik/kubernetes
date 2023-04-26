@@ -37,7 +37,7 @@ kubectl scale deployment nginx replicas=5
 kubectl set image deployment nginx nginx=nginx:1.18
 
 
-# Relace (mengganti/memperbarui) Objects
+# Replace (mengganti/memperbarui) Objects
 
 kubectl replace -f nginx.yaml
 
