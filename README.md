@@ -8,6 +8,62 @@
     | ReplicaSet    | apps/v1      |
     | Deployment    | apps/v1      |
 
+
+
+
+----------------------------------------------------------------------
+
+
+# Imperative comment
+
+
+# Create Objects
+
+kubectl run nginx --image=nginx
+
+kubectl create deployment nginx --image=nginx
+
+kubectl expose deployment nginx --port 80 --target-port 80 --type NodePort
+
+kubectl create -f nginx.yaml
+
+
+# Update Objects
+
+kubectl edit deployment nginx
+
+kubectl scale deployment nginx replicas=5
+
+kubectl set image deployment nginx nginx=nginx:1.18
+
+
+# Relace (mengganti/memperbarui) Objects
+
+kubectl replace -f nginx.yaml
+
+kubectl replace --force -f nginx.yaml
+
+ 
+# Delete Objects
+
+kubectl delete -f nginx.yaml
+
+
+
+
+# Declarative comment
+
+kubectl apply -f nginx.yaml
+
+kubectl apply -f /path/to/config-files
+
+
+# can see Manage Kubernetes Objects in kubernetes.io
+
+[Manage Kubernetes Objects](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/)
+
+
+
 ----------------------------------------------------------------------
 membuat pod redis dengan cara declarative
 
