@@ -17,6 +17,10 @@
 # Imperative comment
 
 
+# Create Pod and expose Service
+kubectl run httpd --image=httpd:alpine --port=80 --expose=true
+
+
 # Create Objects
 
 kubectl run nginx --image=nginx
