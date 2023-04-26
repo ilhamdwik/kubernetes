@@ -13,60 +13,58 @@ Use the above two in combination to generate a resource definition file quickly,
 
 -----------------------------------------------------------------------------------
 
+
 # POD
 ### Create an NGINX Pod
 
 ```kubectl run nginx --image=nginx```
 
-----------------------------------------------------------------------------------
-
 
 ----------------------------------------------------------------------------------
+
 
 ## Generate POD Manifest YAML file (-o yaml). Don't create it(--dry-run)
 
 ```kubectl run nginx --image=nginx --dry-run=client -o yaml```
 
-----------------------------------------------------------------------------------
-
 
 ----------------------------------------------------------------------------------
+
 
 # Deployment
 ### Create a deployment
 
 ```kubectl create deployment --image=nginx nginx```
 
-----------------------------------------------------------------------------------
-
 
 ----------------------------------------------------------------------------------
+
 
 ## Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)
 
 ```kubectl create deployment --image=nginx nginx --dry-run=client -o yaml```
 
-----------------------------------------------------------------------------------
-
 
 ----------------------------------------------------------------------------------
+
 
 ## Generate Deployment with 4 Replicas
 
 ```kubectl create deployment nginx --image=nginx --replicas=4```
 
-----------------------------------------------------------------------------------
-
 
 ----------------------------------------------------------------------------------
+
 
 ### You can also scale a deployment using the kubectl scale command.
 
 ```kubectl scale deployment nginx --replicas=4```
 
+
 ### Another way to do this is to save the YAML definition to a file and modify
 
 ```kubectl create deployment nginx --image=nginx --dry-run=client -o yaml > nginx-deployment.yaml```
+
 
 ----------------------------------------------------------------------------------
 
@@ -75,6 +73,7 @@ Use the above two in combination to generate a resource definition file quickly,
 
 
 ----------------------------------------------------------------------------------
+
 
 # Service
 ### Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379
@@ -89,10 +88,9 @@ Or
 
 (This will not use the pods labels as selectors, instead it will assume selectors as app=redis. You cannot pass in selectors as an option. So it does not work very well if your pod has a different label set. So generate the file and modify the selectors before creating the service)
 
-----------------------------------------------------------------------------------
-
 
 ----------------------------------------------------------------------------------
+
 
 ### Create a Service named nginx of type NodePort to expose pod nginx's port 80 on port 30080 on the nodes:
 
@@ -108,8 +106,9 @@ Or
 
 Both the above commands have their own challenges. While one of it cannot accept a selector the other cannot accept a node port. I would recommend going with the kubectl expose command. If you need to specify a node port, generate a definition file using the same command and manually input the nodeport before creating the service.
 
+
 ----------------------------------------------------------------------------------
 
 ### Reference:
-https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
-https://kubernetes.io/docs/reference/kubectl/conventions
+##### https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
+##### https://kubernetes.io/docs/reference/kubectl/conventions
