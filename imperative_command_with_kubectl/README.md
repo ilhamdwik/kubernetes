@@ -17,7 +17,7 @@
 # POD
 ### Create an NGINX Pod
 
-#### kubectl run nginx --image=nginx
+```kubectl run nginx --image=nginx```
 
 ----------------------------------------------------------------------------------
 
