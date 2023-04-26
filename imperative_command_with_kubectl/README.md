@@ -54,7 +54,7 @@
 
 ## Generate Deployment with 4 Replicas
 
-### kubectl create deployment nginx --image=nginx --replicas=4
+#### kubectl create deployment nginx --image=nginx --replicas=4
 
 ----------------------------------------------------------------------------------
 
@@ -89,7 +89,9 @@
 
 ### Or
 
-#### kubectl create service clusterip redis --tcp=6379:6379 --dry-run=client -o yaml (This will not use the pods labels as selectors, instead it will assume selectors as app=redis. You cannot pass in selectors as an option. So it does not work very well if your pod has a different label set. So generate the file and modify the selectors before creating the service)
+#### kubectl create service clusterip redis --tcp=6379:6379 --dry-run=client -o yaml 
+
+### (This will not use the pods labels as selectors, instead it will assume selectors as app=redis. You cannot pass in selectors as an option. So it does not work very well if your pod has a different label set. So generate the file and modify the selectors before creating the service)
 
 ----------------------------------------------------------------------------------
 
