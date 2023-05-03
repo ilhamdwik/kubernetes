@@ -88,10 +88,16 @@ spec:
 ```
 
 ----------------------------------------------------------------------
+
 kubectl get pods
+
 kubectl describe pod myapp-pod
+
 kubectl apply -f pod.yaml
 
-membuat pod redis dengan cara imperative
+
+### membuat pod redis dengan cara imperative
+
 kubectl run redis --image=redis123 --dry-run=client -o yaml > redis.yaml
+
 kubectl create -f redis.yaml
