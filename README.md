@@ -73,7 +73,7 @@ kubectl apply -f /path/to/config-files
 membuat pod redis dengan cara declarative
 
 POD
-
+```
 apiVersion: v1
 kind: Pod
 metadata:
@@ -85,7 +85,8 @@ spec:
   containers:
     - name: nginx-containers
       image: nginx
-    
+```
+
 ----------------------------------------------------------------------
 kubectl get pods
 kubectl describe pod myapp-pod
