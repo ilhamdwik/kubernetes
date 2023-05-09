@@ -26,13 +26,15 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 
 If you want to logout from all the accounts run the following command
-
 gcloud auth revoke --all
+
 If you want to logout from a specific account then run the following command
-
 gcloud auth revoke <your_account>
-If you want to login with a different account, you can run the following command
 
+If you want to login with a different account, you can run the following command
 gcloud auth login
+
 This will take you to the Google's login page where you can choose the account with which you want to login
 
+gcloud auth list
+list auth in local computer
